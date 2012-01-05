@@ -46,7 +46,6 @@ inline uint8_t ar_max_u8(uint8_t a, uint8_t b)
 }
 
 //-----------------------------------------------------------------------------
-
 #ifdef ENABLE_NEON_OPTS
 void ar_vadd_u8_neon(uint8_t* res,
                      const uint8_t* a,
@@ -66,7 +65,10 @@ void ar_vadd_u8_neon(uint8_t* res,
 }
 #endif
 
-void ar_vadd_u8_generic(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n)
+void ar_vadd_u8_generic(uint8_t* res,
+                        const uint8_t* a,
+                        const uint8_t* b,
+                        uint32_t n)
 {
    for (uint32_t i = 0; i < n; i++) {
       res[i] = a[i] + b[i];
@@ -84,9 +86,11 @@ void ar_vadd_u8(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n)
 }
 
 //-----------------------------------------------------------------------------
-
 #ifdef ENABLE_NEON_OPTS
-void ar_vsub_u8_neon(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n)
+void ar_vsub_u8_neon(uint8_t* res,
+                     const uint8_t* a,
+                     const uint8_t* b,
+                     uint32_t n)
 {
    uint8x16_t a_loaded;
    uint8x16_t b_loaded;
@@ -101,7 +105,10 @@ void ar_vsub_u8_neon(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t 
 }
 #endif
 
-void ar_vsub_u8_generic(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n)
+void ar_vsub_u8_generic(uint8_t* res,
+                        const uint8_t* a,
+                        const uint8_t* b,
+                        uint32_t n)
 {
    for (uint32_t i = 0; i < n; i++) {
       res[i] = a[i] + b[i];
@@ -118,10 +125,12 @@ void ar_vsub_u8(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n)
 #endif
 }
 
-//---------------------------------------------------------------------------------------
-
+//-----------------------------------------------------------------------------
 #ifdef ENABLE_NEON_OPTS
-void ar_vmul_u8_neon(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n)
+void ar_vmul_u8_neon(uint8_t* res,
+                     const uint8_t* a,
+                     const uint8_t* b,
+                     uint32_t n)
 {
    uint8x16_t a_loaded;
    uint8x16_t b_loaded;
@@ -136,7 +145,10 @@ void ar_vmul_u8_neon(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t 
 }
 #endif
 
-void ar_vmul_u8_generic(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n)
+void ar_vmul_u8_generic(uint8_t* res,
+                        const uint8_t* a,
+                        const uint8_t* b,
+                        uint32_t n)
 {
    for (uint32_t i = 0; i < n; i++) {
       res[i] = a[i] * b[i];
@@ -153,15 +165,7 @@ void ar_vmul_u8(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n)
 #endif
 }
 
-//---------------------------------------------------------------------------------------
-
-void ar_vmax_u8_generic(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n)
-{
-   for (uint32_t i = 0; i < n; i++) {
-      res[i] = ar_max_u8(a[i], b[i]);
-   }
-}
-
+//-----------------------------------------------------------------------------
 #ifdef ENABLE_NEON_OPTS
 void ar_vmax_u8_neon(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n)
 {
@@ -178,6 +182,12 @@ void ar_vmax_u8_neon(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t 
 }
 #endif
 
+void ar_vmax_u8_generic(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n)
+{
+   for (uint32_t i = 0; i < n; i++) {
+      res[i] = ar_max_u8(a[i], b[i]);
+   }
+}
 
 void ar_vmax_u8(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n)
 {
@@ -188,15 +198,7 @@ void ar_vmax_u8(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n)
 #endif
 }
 
-//---------------------------------------------------------------------------------------
-
-void ar_vmin_u8_generic(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n)
-{
-   for (uint32_t i = 0; i < n; i++) {
-      res[i] = ar_min_u8(a[i], b[i]);
-   }
-}
-
+//-----------------------------------------------------------------------------
 #ifdef ENABLE_NEON_OPTS
 void ar_vmin_u8_neon(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n)
 {
@@ -214,6 +216,13 @@ void ar_vmin_u8_neon(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t 
 #endif
 
 
+void ar_vmin_u8_generic(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n)
+{
+   for (uint32_t i = 0; i < n; i++) {
+      res[i] = ar_min_u8(a[i], b[i]);
+   }
+}
+
 void ar_vmin_u8(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n)
 {
 #ifdef ENABLE_NEON_OPTS
@@ -223,41 +232,7 @@ void ar_vmin_u8(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n)
 #endif
 }
 
-//-------------------------------------------------------------------------------------
-#ifdef ENABLE_NEON_OPTS
-void ar_vsub_const_u8_neon(uint8_t* res, uint8_t val, const uint8_t* a, uint32_t n)
-{
-   uint8x16_t a_loaded;
-   uint8x16_t const_loaded;
-   uint8x16_t res_loaded;
-
-   const_loaded = vdupq_n_u8(val);
-
-   for (uint32_t i = 0; i < n; i += 16) {
-      a_loaded = vld1q_u8(&(a[i]));
-      res_loaded = vsubq_u8(const_loaded, a_loaded);
-      vst1q_u8(&(res[i]),res_loaded);
-   }
-}
-#endif
-
-void ar_vsub_const_u8_generic(uint8_t* res, uint8_t val, const uint8_t* a, uint32_t n)
-{
-   for (uint32_t i = 0; i < n; i++) {
-      res[i] = val - a[i];
-   }
-}
-
-
-void ar_vsub_const_u8(uint8_t* res, uint8_t val, const uint8_t* a, uint32_t n)
-{
-#ifdef ENABLE_NEON_OPTS
-   ar_vsub_const_u8_neon(res,val,a,n);
-#else
-   ar_vsub_const_u8_generic(res,val,a,n);
-#endif
-}
-
+//-----------------------------------------------------------------------------
 #ifdef ENABLE_NEON_OPTS
 void ar_vnot_u8_neon(uint8_t* res, const uint8_t* a, uint32_t n)
 {

@@ -28,6 +28,6 @@
 void
 ar_invert_transform(const arRGBBitmap* in, arRGBBitmap* out)
 {
-   ar_vnot_u8(out->data_, in->data_, (uint32_t)3*(uint32_t)in->width_ * (uint32_t)in->height_);
+   ar_vnot_u8(out->data_, in->data_, 3*in->width_*in->height_);
 }
 

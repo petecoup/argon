@@ -32,13 +32,13 @@ extern "C" {
 
 typedef struct arRGBBitmap
 {
-   uint16_t width_;
-   uint16_t height_;
+   uint32_t width_;
+   uint32_t height_;
 
    uint8_t* data_;
 } arRGBBitmap;
 
-arRGBBitmap* ar_create_bitmap(uint16_t width, uint16_t height);
+arRGBBitmap* ar_create_bitmap(uint32_t width, uint32_t height);
 void ar_release_bitmap(arRGBBitmap* bm);
 
 #ifdef __cplusplus

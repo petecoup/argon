@@ -25,7 +25,7 @@
 
 #include "argon/rgb_bitmap.h"
 
-arRGBBitmap* ar_create_bitmap(uint16_t width, uint16_t height)
+arRGBBitmap* ar_create_bitmap(uint32_t width, uint32_t height)
 {
    arRGBBitmap* retbm = malloc(sizeof(arRGBBitmap));
    
