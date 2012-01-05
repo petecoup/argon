@@ -1,0 +1,15 @@
+I wanted to try and learn ARM NEON.  After a lot of looking, I decided to try
+and implement a few basic image processing algorithms, optimized for neon.
+The nicest image processing library that I could find to work with was Python's
+PIL.  A good share of that library is written in platform independent C.
+The plan for argon is to implement some of the ImageOps, ImageStats, and
+ImageFilters found in PIL, optimized for NEON.
+
+A couple of nice NEON resources/reads:
+http://gcc.gnu.org/onlinedocs/gcc/ARM-NEON-Intrinsics.html
+(gcc page on NEON intrinsics).
+http://blogs.arm.com/software-enablement/161-coding-for-neon-part-1-load-and-stores/
+http://blogs.arm.com/software-enablement/196-coding-for-neon-part-2-dealing-with-leftovers/ 
+http://blogs.arm.com/software-enablement/241-coding-for-neon-part-3-matrix-multiplication/
+(Series of tutorials on programming for NEON).
+
