@@ -264,3 +264,57 @@ void ar_vnot_u8(uint8_t* res, const uint8_t* a, uint32_t n)
 }
 
 
+//----------------------------------------------------------------------------
+#ifdef ENABLE_NEON_OPTS
+uint8_t ar_vmaxall_u8_neon(const uint8_t* a, uint32_t n)
+{
+   return 0;
+}
+#endif
+
+uint8_t ar_vmaxall_u8_generic(const uint8_t* a, uint32_t n)
+{
+   uint8_t maxall = 0;
+
+   for (uint32_t i = 0; i < n; i++) {
+      maxall = ar_max_u8(maxall, a[i]);
+   }
+   return maxall;
+}
+
+uint8_t ar_vmaxall_u8(const uint8_t* a, uint32_t n)
+{
+#ifdef ENABLE_NEON_OPTS
+   return ar_vmaxall_u8_neon(a,n);
+#else
+   return ar_vmaxall_u8_generic(a,n);
+#endif
+}
+
+//-----------------------------------------------------------------------------
+#ifdef ENABLE_NEON_OPTS
+uint8_t ar_vminall_u8_neon(const uint8_t* a, uint32_t n)
+{
+   return 255;
+}
+#endif
+
+uint8_t ar_vminall_u8_generic(const uint8_t* a, uint32_t n)
+{
+   uint8_t minall = 255;
+
+   for (uint32_t i = 0; i < n; i++) {
+      minall = ar_min_u8(minall, a[i]);
+   }
+   return minall;
+}
+
+uint8_t ar_vminall_u8(const uint8_t* a, uint32_t n)
+{
+#ifdef ENABLE_NEON_OPTS
+   return ar_vminall_u8_neon(a,n);
+#else
+   return ar_vminall_u8_generic(a,n);
+#endif
+}
+

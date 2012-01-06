@@ -34,5 +34,8 @@ void ar_vmin_u8(uint8_t* res, const uint8_t* a, const uint8_t* b, uint32_t n);
 void ar_vabs_u8(uint8_t* res, const uint8_t* a, uint32_t n);
 void ar_vnot_u8(uint8_t* res, const uint8_t* a, uint32_t n);
 
+uint8_t ar_vmaxall_u8(const uint8_t* a, uint32_t n);
+uint8_t ar_vminall_u8(const uint8_t* a, uint32_t n);
+
 #endif
 
