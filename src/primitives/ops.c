@@ -268,7 +268,23 @@ void ar_vnot_u8(uint8_t* res, const uint8_t* a, uint32_t n)
 #ifdef ENABLE_NEON_OPTS
 uint8_t ar_vmaxall_u8_neon(const uint8_t* a, uint32_t n)
 {
-   return 0;
+   uint8x16_t a_loaded;
+   uint8x16_t overall_max = vdupq_n_u8(0);
+   uint8_t om_array[16];
+   uint8_t themax = 0;
+
+   for (uint32_t i = 0; i < n; i += 16) {
+      a_loaded = vld1q_u8(&(a[i]));
+      overall_max = vmaxq_u8(a_loaded, overall_max);
+   }
+
+   vst1q_u8(om_array, overall_max);
+   
+   for (uint32_t i = 0; i < 16; i++) {
+      themax = ar_max_u8(themax, om_array[i]);
+   }
+
+   return themax;
 }
 #endif
 
@@ -295,7 +311,23 @@ uint8_t ar_vmaxall_u8(const uint8_t* a, uint32_t n)
 #ifdef ENABLE_NEON_OPTS
 uint8_t ar_vminall_u8_neon(const uint8_t* a, uint32_t n)
 {
-   return 255;
+   uint8x16_t a_loaded;
+   uint8x16_t overall_min = vdupq_n_u8(255);
+   uint8_t om_array[16];
+   uint8_t themin = 255;
+
+   for (uint32_t i = 0; i < n; i += 16) {
+      a_loaded = vld1q_u8(&(a[i]));
+      overall_min = vminq_u8(a_loaded, overall_min);
+   }
+
+   vst1q_u8(om_array, overall_min);
+   
+   for (uint32_t i = 0; i < 16; i++) {
+      themin = ar_min_u8(themin, om_array[i]);
+   }
+
+   return themin;
 }
 #endif
 
