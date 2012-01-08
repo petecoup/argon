@@ -25,5 +25,16 @@ def build(bld):
         defines = ['ENABLE_NEON_OPTS'],
         includes = ['include'],
         use = 'argon',
-        cflags = ['-O3', '-mfpu=neon', '-Wall', '-Werror']
+        cflags = ['-std=c99', '-O3', '-mfpu=neon', '-Wall', '-Werror']
+    )
+
+    bld.program(
+        source = ['test/test_primitives.c'],
+        target = 'argon_test',
+        defines = ['ENABLE_NEON_OPTS'],
+        includes = ['include', '/usr/local'],
+        use = 'argon',
+        lib = ['check'],
+        libpath = ['/usr/local'],
+        cflags = ['-std=c99', '-O3', '-mfpu=neon', '-Wall']
     )

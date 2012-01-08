@@ -27,7 +27,7 @@
 #include <arm_neon.h>
 #endif
 
-#include "ops.h"
+#include "argon/primitives/ops.h"
 
 inline uint8_t ar_min_u8(uint8_t a, uint8_t b)
 {
@@ -111,7 +111,7 @@ void ar_vsub_u8_generic(uint8_t* res,
                         uint32_t n)
 {
    for (uint32_t i = 0; i < n; i++) {
-      res[i] = a[i] + b[i];
+      res[i] = a[i] - b[i];
    }
 }
 
