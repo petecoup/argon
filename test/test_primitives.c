@@ -102,6 +102,27 @@ START_TEST(check_mul)
 }
 END_TEST
 
+START_TEST(check_vmaxall)
+{
+   uint8_t vals[] = {5,55,23,13,77,25,22,11,77,89,12,9,10,21,22,33,
+                     8,85,32,63,32,43,54,65,76,87,32,4,53,22,23,12};
+
+   uint8_t res = ar_vmaxall_u8(vals,32);
+   fail_if(res != 89, "89 should be the maximum");
+}
+END_TEST
+
+START_TEST(check_vminall)
+{
+   uint8_t vals[] = {5,55,23,13,77,25,22,11,77,89,12,9,10,21,22,33,
+                     8,85,32,63,32,43,54,65,76,87,32,4,53,22,23,12};
+
+   uint8_t res = ar_vminall_u8(vals,32);
+   fail_if(res != 4, "4 should be the maximum");
+}
+END_TEST
+
+
 Suite *
 primitive_suite()
 {
@@ -115,6 +136,8 @@ primitive_suite()
    tcase_add_test(tc_basics, check_max);
    tcase_add_test(tc_basics, check_min);
    tcase_add_test(tc_basics, check_mul);
+   tcase_add_test(tc_basics, check_vmaxall);
+   tcase_add_test(tc_basics, check_vminall);
    suite_add_tcase(s, tc_basics);
 
    return s;
