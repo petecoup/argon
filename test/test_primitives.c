@@ -131,7 +131,7 @@ START_TEST(check_stride2_vmaxall)
 
    uint8_t res_lane0, res_lane1;
 
-   ar_stride2_vmaxall_u8(vals,32,&res_lane0,&res_lane1);
+   ar_stride2_vmaxall_u8(vals,64,&res_lane0,&res_lane1);
    fail_if(res_lane0 != 32, "max on even entries should be 32.");
    fail_if(res_lane1 != 101, "max on odd entries should be 101.");
 }
@@ -145,7 +145,7 @@ START_TEST(check_stride2_vminall)
                      32,99,31,99,30,99,29,98,28,99,27,99,26,99,25,99};
 
    uint8_t res_lane0, res_lane1;
-   ar_stride2_vminall_u8(vals,32,&res_lane0,&res_lane1);
+   ar_stride2_vminall_u8(vals,64,&res_lane0,&res_lane1);
    fail_if(res_lane0 != 1, "min on even entries should be 1.");
    fail_if(res_lane1 != 98, "min on odd entries should be 98.");
 }
