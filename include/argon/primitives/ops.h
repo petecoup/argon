@@ -35,8 +35,15 @@ void ar_vnot_u8(uint8_t* res, const uint8_t* a, uint32_t n);
 
 uint8_t ar_vmaxall_u8(const uint8_t* a, uint32_t n);
 uint8_t ar_vminall_u8(const uint8_t* a, uint32_t n);
-uint8_t ar_strided_vmaxall_u8(const uint8_t* a, uint32_t n);
-uint8_t ar_strided_vminall_u8(const uint8_t* a, uint32_t n);
+void ar_stride2_vmaxall_u8(const uint8_t* a,
+                           uint32_t n,
+                           uint8_t* lane0_result,
+                           uint8_t* lane1_result);
+void ar_stride2_vminall_u8(const uint8_t* a,
+                           uint32_t n,
+                           uint8_t* lane0_result,
+                           uint8_t* lane1_result);
+
 
 #endif
 

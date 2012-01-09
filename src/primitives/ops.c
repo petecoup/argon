@@ -350,3 +350,83 @@ uint8_t ar_vminall_u8(const uint8_t* a, uint32_t n)
 #endif
 }
 
+//-----------------------------------------------------------------------------
+#ifdef ENABLE_NEON_OPTS
+void ar_stride2_vminall_u8_neon(const uint8_t* a,
+                                uint32_t n,
+                                uint8_t* lane0_result,
+                                uint8_t* lane1_result)
+{
+   *lane0_result = 255;
+   *lane1_result = 255;
+}
+#endif
+
+void ar_stride2_vminall_u8_generic(const uint8_t* a,
+                                   uint32_t n,
+                                   uint8_t* lane0_result,
+                                   uint8_t* lane1_result)
+{
+   uint8_t minall_lane0 = 255;
+   uint8_t minall_lane1 = 255;
+
+   for (uint32_t i = 0; i < n; i++) {
+      minall_lane0 = ar_min_u8(minall_lane0, a[i*2]);
+      minall_lane1 = ar_min_u8(minall_lane1, a[1+i*2]);
+   }
+   *lane0_result = minall_lane0;
+   *lane1_result = minall_lane1;
+}
+
+void ar_stride2_vminall_u8(const uint8_t* a,
+                           uint32_t n,
+                           uint8_t* lane0_result,
+                           uint8_t* lane1_result)
+{
+#ifdef ENABLE_NEON_OPTS
+   return ar_stride2_vminall_u8_neon(a,n,lane0_result,lane1_result);
+#else
+   return ar_stride2_vminall_u8_generic(a,n,lane0_result,lane1_result);
+#endif
+}
+
+//-----------------------------------------------------------------------------
+#ifdef ENABLE_NEON_OPTS
+void ar_stride2_vmaxall_u8_neon(const uint8_t* a,
+                                uint32_t n,
+                                uint8_t* lane0_result,
+                                uint8_t* lane1_result)
+{
+   *lane0_result = 0;
+   *lane1_result = 0;
+}
+#endif
+
+void ar_stride2_vmaxall_u8_generic(const uint8_t* a,
+                                   uint32_t n,
+                                   uint8_t* lane0_result,
+                                   uint8_t* lane1_result)
+{
+   uint8_t maxall_lane0 = 0;
+   uint8_t maxall_lane1 = 0;
+
+   for (uint32_t i = 0; i < n; i++) {
+      maxall_lane0 = ar_max_u8(maxall_lane0, a[i*2]);
+      maxall_lane1 = ar_max_u8(maxall_lane1, a[1+i*2]);
+   }
+   *lane0_result = maxall_lane0;
+   *lane1_result = maxall_lane1;
+}
+
+void ar_stride2_vmaxall_u8(const uint8_t* a,
+                           uint32_t n,
+                           uint8_t* lane0_result,
+                           uint8_t* lane1_result)
+{
+#ifdef ENABLE_NEON_OPTS
+   return ar_stride2_vmaxall_u8_neon(a,n,lane0_result,lane1_result);
+#else
+   return ar_stride2_vmaxall_u8_generic(a,n,lane0_result,lane1_result);
+#endif
+}
+

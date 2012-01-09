@@ -122,6 +122,34 @@ START_TEST(check_vminall)
 }
 END_TEST
 
+START_TEST(check_stride2_vmaxall)
+{
+   uint8_t vals[] = {1,100,2,100,3,100,4,101,5,100,6,100,7,100,8,100,
+                     9,100,10,99,11,99,12,99,13,99,14,99,15,99,16,99,
+                     17,99,18,99,19,99,20,99,21,99,22,99,23,99,24,99,
+                     32,99,31,99,30,99,29,98,28,99,27,99,26,99,25,99};
+
+   uint8_t res_lane0, res_lane1;
+
+   ar_stride2_vmaxall_u8(vals,32,&res_lane0,&res_lane1);
+   fail_if(res_lane0 != 32, "max on even entries should be 32.");
+   fail_if(res_lane1 != 101, "max on odd entries should be 101.");
+}
+END_TEST
+
+START_TEST(check_stride2_vminall)
+{
+   uint8_t vals[] = {8,100,7,100,6,100,5,101,4,100,3,100,2,100,1,100,
+                     9,100,10,99,11,99,12,99,13,99,14,99,15,99,16,99,
+                     17,99,18,99,19,99,20,99,21,99,22,99,23,99,24,99,
+                     32,99,31,99,30,99,29,98,28,99,27,99,26,99,25,99};
+
+   uint8_t res_lane0, res_lane1;
+   ar_stride2_vminall_u8(vals,32,&res_lane0,&res_lane1);
+   fail_if(res_lane0 != 1, "min on even entries should be 1.");
+   fail_if(res_lane1 != 98, "min on odd entries should be 98.");
+}
+END_TEST
 
 Suite *
 primitive_suite()
@@ -138,6 +166,8 @@ primitive_suite()
    tcase_add_test(tc_basics, check_mul);
    tcase_add_test(tc_basics, check_vmaxall);
    tcase_add_test(tc_basics, check_vminall);
+   tcase_add_test(tc_basics, check_stride2_vmaxall);
+   tcase_add_test(tc_basics, check_stride2_vminall);
    suite_add_tcase(s, tc_basics);
 
    return s;
