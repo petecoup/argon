@@ -37,13 +37,16 @@ uint8_t ar_vmaxall_u8(const uint8_t* a, uint32_t n);
 uint8_t ar_vminall_u8(const uint8_t* a, uint32_t n);
 void ar_stride2_vmaxall_u8(const uint8_t* a,
                            uint32_t n,
-                           uint8_t* line0_result,
-                           uint8_t* line1_result);
+                           uint8_t* line_results);
 void ar_stride2_vminall_u8(const uint8_t* a,
                            uint32_t n,
-                           uint8_t* line0_result,
-                           uint8_t* line1_result);
+                           uint8_t* line0_result);
 
-
+void ar_stride3_vmaxall_u8(const uint8_t* a,
+                           uint32_t n,
+                           uint8_t* line_results);
+void ar_stride3_vminall_u8(const uint8_t* a,
+                           uint32_t n,
+                           uint8_t* line_results);
 #endif
 

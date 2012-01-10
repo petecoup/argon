@@ -129,11 +129,11 @@ START_TEST(check_stride2_vmaxall)
                      17,99,18,99,19,99,20,99,21,99,22,99,23,99,24,99,
                      32,99,31,99,30,99,29,98,28,99,27,99,26,99,25,99};
 
-   uint8_t res_lane0, res_lane1;
+   uint8_t res_lane[2];
 
-   ar_stride2_vmaxall_u8(vals,64,&res_lane0,&res_lane1);
-   fail_if(res_lane0 != 32, "max on even entries should be 32.");
-   fail_if(res_lane1 != 101, "max on odd entries should be 101.");
+   ar_stride2_vmaxall_u8(vals,64,res_lane);
+   fail_if(res_lane[0] != 32, "max on even entries should be 32.");
+   fail_if(res_lane[1] != 101, "max on odd entries should be 101.");
 }
 END_TEST
 
@@ -144,10 +144,99 @@ START_TEST(check_stride2_vminall)
                      17,99,18,99,19,99,20,99,21,99,22,99,23,99,24,99,
                      32,99,31,99,30,99,29,98,28,99,27,99,26,99,25,99};
 
-   uint8_t res_lane0, res_lane1;
-   ar_stride2_vminall_u8(vals,64,&res_lane0,&res_lane1);
-   fail_if(res_lane0 != 1, "min on even entries should be 1.");
-   fail_if(res_lane1 != 98, "min on odd entries should be 98.");
+   uint8_t res_lane[2];
+   ar_stride2_vminall_u8(vals,64,res_lane);
+   fail_if(res_lane[0] != 1, "min on even entries should be 1.");
+   fail_if(res_lane[1] != 98, "min on odd entries should be 98.");
+}
+END_TEST
+
+START_TEST(check_stride3_vmaxall)
+{
+   uint8_t vals[] = {7,57,107,
+                     5,55,105,
+                     7,57,107,
+                     3,53,103,
+                     2,52,102,
+                     4,54,104,
+                     8,58,108,
+                     5,55,105,
+                     7,57,107,
+                     4,54,104,
+                     3,53,103,
+                     1,51,101, // Here is the min.
+                     4,54,104,
+                     8,58,108,
+                     4,54,104,
+                     8,58,108,
+                     5,55,105,
+                     7,57,107,
+                     3,53,103,
+                     2,52,102,
+                     4,54,104,
+                     8,58,108,
+                     4,54,104,
+                     8,58,108,
+                     5,55,105,
+                     7,57,107,
+                     9,59,109, // Here is the max.
+                     2,52,102,
+                     4,54,104,
+                     8,58,108,
+                     4,54,104,
+                     8,58,108};
+
+   uint8_t res_lane[3];
+
+   ar_stride3_vmaxall_u8(vals,96,res_lane);
+   fail_if(res_lane[0] != 9, "max on 0 mod 3 should be 9.");
+   fail_if(res_lane[1] != 59, "max on 1 mod 3 should be 59.");
+   fail_if(res_lane[2] != 109,  "max on 2 mod 3 should be 109.");
+}
+END_TEST
+
+START_TEST(check_stride3_vminall)
+{
+   uint8_t vals[] = {7,57,107,
+                     5,55,105,
+                     7,57,107,
+                     3,53,103,
+                     2,52,102,
+                     4,54,104,
+                     8,58,108,
+                     5,55,105,
+                     7,57,107,
+                     4,54,104,
+                     3,53,103,
+                     1,51,101, // Here is the min.
+                     4,54,104,
+                     8,58,108,
+                     4,54,104,
+                     8,58,108,
+                     5,55,105,
+                     7,57,107,
+                     3,53,103,
+                     2,52,102,
+                     4,54,104,
+                     8,58,108,
+                     4,54,104,
+                     8,58,108,
+                     5,55,105,
+                     7,57,107,
+                     9,59,109, // Here is the max.
+                     2,52,102,
+                     4,54,104,
+                     8,58,108,
+                     4,54,104,
+                     8,58,108};
+
+   uint8_t res_lane[3];
+
+   ar_stride3_vminall_u8(vals,96,res_lane);
+
+   fail_if(res_lane[0] != 1, "min on 0 mod 3 should be 1.");
+   fail_if(res_lane[1] != 51, "min on 1 mod 3 should be 51.");
+   fail_if(res_lane[2] != 101,  "min on 2 mod 3 should be 101.");
 }
 END_TEST
 
@@ -168,6 +257,9 @@ primitive_suite()
    tcase_add_test(tc_basics, check_vminall);
    tcase_add_test(tc_basics, check_stride2_vmaxall);
    tcase_add_test(tc_basics, check_stride2_vminall);
+   tcase_add_test(tc_basics, check_stride3_vmaxall);
+   tcase_add_test(tc_basics, check_stride3_vminall);
+
    suite_add_tcase(s, tc_basics);
 
    return s;
