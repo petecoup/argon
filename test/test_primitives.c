@@ -189,6 +189,7 @@ START_TEST(check_stride3_vmaxall)
    uint8_t res_lane[3];
 
    ar_stride3_vmaxall_u8(vals,96,res_lane);
+
    fail_if(res_lane[0] != 9, "max on 0 mod 3 should be 9.");
    fail_if(res_lane[1] != 59, "max on 1 mod 3 should be 59.");
    fail_if(res_lane[2] != 109,  "max on 2 mod 3 should be 109.");

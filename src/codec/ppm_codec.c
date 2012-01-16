@@ -133,7 +133,7 @@ ar_read_ppm_file(const char* filename)
    read_res = fread(bitmap->data_, 1, 3*width*height, f);
 
    if (read_res != 3*width*height) {
-      printf("Read error: read %u bytes, expected %u bytes\n", read_res, 3*width*height);
+      printf("Read error: read %u bytes, expected %u bytes\n", (unsigned)read_res, 3*width*height);
    }
    return bitmap;
 }
@@ -150,7 +150,7 @@ ar_write_ppm_file(const arRGBBitmap* bitmap, const char* filename)
    written = fwrite(buf, 1, strlen(buf), out);
 
    if (written != strlen(buf)) {
-      printf("Write error: wrote %u bytes, expected %u.\n", written, strlen(buf));
+      printf("Write error: wrote %u bytes, expected %u.\n", (unsigned)written, (unsigned)strlen(buf));
       return;
    }
    
@@ -159,7 +159,7 @@ ar_write_ppm_file(const arRGBBitmap* bitmap, const char* filename)
    written = fwrite(bitmap->data_, 1, 3*bitmap->width_*bitmap->height_, out);
 
    if (written != 3*bitmap->width_*bitmap->height_) {
-      printf("Write error: wrote %u bytes, expected %u.\n", written, 3*bitmap->width_*bitmap->height_);
+      printf("Write error: wrote %u bytes, expected %u.\n", (unsigned)written, 3*bitmap->width_*bitmap->height_);
       return;
    }
 }

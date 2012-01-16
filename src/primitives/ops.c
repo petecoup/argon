@@ -472,8 +472,8 @@ void ar_stride3_vmaxall_u8_neon(const uint8_t* a,
    uint8x16_t line2_max = vdupq_n_u8(0);
 
    line_results[0] = 0;
-   line_results[0] = 0;
-   line_results[0] = 0;
+   line_results[1] = 0;
+   line_results[2] = 0;
 
    uint8_t line0_array[16];
    uint8_t line1_array[16];
@@ -488,7 +488,8 @@ void ar_stride3_vmaxall_u8_neon(const uint8_t* a,
 
    vst1q_u8(line0_array, line0_max);
    vst1q_u8(line1_array, line1_max);
-   
+   vst1q_u8(line2_array, line2_max);
+
    for (uint32_t i = 0; i < 16; i++) {
       line_results[0] = ar_max_u8(line_results[0], line0_array[i]);
       line_results[1] = ar_max_u8(line_results[1], line1_array[i]);
@@ -535,8 +536,8 @@ void ar_stride3_vminall_u8_neon(const uint8_t* a,
    uint8x16_t line2_min = vdupq_n_u8(255);
 
    line_results[0] = 255;
-   line_results[0] = 255;
-   line_results[0] = 255;
+   line_results[1] = 255;
+   line_results[2] = 255;
 
    uint8_t line0_array[16];
    uint8_t line1_array[16];
@@ -551,6 +552,7 @@ void ar_stride3_vminall_u8_neon(const uint8_t* a,
 
    vst1q_u8(line0_array, line0_min);
    vst1q_u8(line1_array, line1_min);
+   vst1q_u8(line2_array, line2_min);
    
    for (uint32_t i = 0; i < 16; i++) {
       line_results[0] = ar_min_u8(line_results[0], line0_array[i]);
